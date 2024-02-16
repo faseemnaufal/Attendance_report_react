@@ -20,7 +20,8 @@
     border: 1px solid #ddd;
     padding: 12px;
     text-align: center;
-    white-space: nowrap; 
+    white-space: nowrap;
+    position: relative;
   }
   
   .attendance-table th {
@@ -28,11 +29,19 @@
   }
   
   .attendance-table td {
-    font-size: 16px; 
-    background-color: #fff; 
+    font-size: 16px;
+    background-color: #fff;
   }
   
   .days {
-    width: 200px; 
+    width: 200px;
+  }
+  
+  .missing-both::after {
+    content: '\2022'; 
+    color: red;
+    position: absolute;
+    top: 5px;
+    right: 5px; 
   }
   
