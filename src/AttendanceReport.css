@@ -1,24 +1,38 @@
+/* AttendanceReport.css */
+
 .report {
-    margin: 10px;
-}
-
-.heading {
-    text-align: center;
-}
-
-.attendance-table {
+    margin: 20px;
+  }
+  
+  .heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .attendance-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
   }
   
-  .attendance-table th, .attendance-table td {
+  .attendance-table th,
+  .attendance-table td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 12px;
+    text-align: center;
+    white-space: nowrap; 
   }
   
   .attendance-table th {
     background-color: #f2f2f2;
+  }
+  
+  .attendance-table td {
+    font-size: 16px; 
+    background-color: #fff; 
+  }
+  
+  .days {
+    width: 200px; 
   }
   

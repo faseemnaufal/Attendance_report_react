@@ -2,38 +2,42 @@ import React from 'react';
 import './AttendanceReport.css';
 
 const AttendanceReport = ({ data }) => {
+  const daysInMonth = 31;
+
+  const allColumns = ["Employee Number"];
+  for (let day = 1; day <= daysInMonth; day++) {
+    allColumns.push(`Day ${day}`);
+  }
+
   return (
     <div className='report'>
       <h2 className='heading'>Attendance Report</h2>
-      {data.map((employee, index) => (
-        <div key={index}>
-          <h3>Employee {employee.employeeNumber}</h3>
-          <table className="attendance-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Punch Time</th>
-                <th>Punch Type</th>
-                <th>ID</th>
-                <th>Shift Start Time</th>
-                <th>Shift End Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employee.punches.map((punch, punchIndex) => (
-                <tr key={punchIndex}>
-                  <td>{punch.date}</td>
-                  <td>{punch.punchTime}</td>
-                  <td>{punch.punchType}</td>
-                  <td>{punch.shift.id}</td>
-                  <td>{punch.shift.startTime}</td>
-                  <td>{punch.shift.endTime}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ))}
+      <table className="attendance-table">
+        <thead>
+          <tr>
+            {allColumns.map((column, columnIndex) => (
+              <th key={columnIndex}>{column}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((employee, index) => (
+            <tr key={index}>
+              <td>{employee.employeeNumber}</td>
+              {Array.from({ length: daysInMonth }, (v, i) => {
+                const punches = employee.punches.filter(punch => punch.date.endsWith(`-${String(i + 1).padStart(2, '0')}`));
+                const inPunch = punches.find(punch => punch.punchType === 'In');
+                const outPunch = punches.find(punch => punch.punchType === 'Out');
+                return (
+                  <td key={i} className='days'>
+                    {inPunch ? `${inPunch.punchTime}(In)` : ''} / {outPunch ? `${outPunch.punchTime}(Out)` : ''}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
