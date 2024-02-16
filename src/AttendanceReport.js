@@ -6,7 +6,8 @@ const AttendanceReport = ({ data }) => {
 
   const allColumns = ["Employee Number"];
   for (let day = 1; day <= daysInMonth; day++) {
-    allColumns.push(`Day ${day}`);
+    const date = `2024-01-${String(day).padStart(2, '0')}`;
+    allColumns.push(`Day ${day} (${date})`);
   }
 
   return (
@@ -29,9 +30,19 @@ const AttendanceReport = ({ data }) => {
                 const inPunch = punches.find(punch => punch.punchType === 'In');
                 const outPunch = punches.find(punch => punch.punchType === 'Out');
                 return (
-                  <td key={i} className='days'>
-                    {inPunch ? `${inPunch.punchTime}(In)` : ''} / {outPunch ? `${outPunch.punchTime}(Out)` : ''}
+                    <td key={i} className='days'>
+                    {inPunch && (
+                      <div>
+                        {`${inPunch.punchTime}(In)`}
+                      </div>
+                    )}
+                    {outPunch && (
+                      <div>
+                        {`${outPunch.punchTime}(Out)`}
+                      </div>
+                    )}
                   </td>
+                  
                 );
               })}
             </tr>
